@@ -23,9 +23,10 @@ public class TeacherDto {
     private String password;
 
     @NotNull
+//    @JsonProperty("role_id")
     private String role;
 
-    private List<GroupDto> groups;
-
-    private List<TestDto> tests;
+//    private List<GroupDto> groups;
+//
+//    private List<TestDto> tests;
 }

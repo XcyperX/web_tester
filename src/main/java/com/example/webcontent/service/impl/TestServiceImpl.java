@@ -6,9 +6,11 @@ import com.example.webcontent.model.Test;
 import com.example.webcontent.repository.TestRepo;
 import com.example.webcontent.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class TestServiceImpl implements TestService {
     @Autowired
     private TestMapper testMapper;

@@ -21,8 +21,8 @@ public class TeacherMapper implements BaseMapperService<Teacher, TeacherDto> {
         teacher.setSurname(dto.getSurname());
         teacher.setPassword(dto.getPassword());
         teacher.setRole(Role.valueOf(dto.getRole()));
-        teacher.setGroups(mapper.groupMapper.toEntities(dto.getGroups()));
-        teacher.setTests(mapper.testMapper.toEntities(dto.getTests()));
+//        teacher.setGroups(mapper.groupMapper.toEntities(dto.getGroups()));
+//        teacher.setTests(mapper.testMapper.toEntities(dto.getTests()));
         return teacher;
     }
 
@@ -34,8 +34,8 @@ public class TeacherMapper implements BaseMapperService<Teacher, TeacherDto> {
         teacherDto.setSurname(entity.getSurname());
         teacherDto.setPassword(entity.getPassword());
         teacherDto.setRole(entity.getRole().name());
-        teacherDto.setGroups(mapper.groupMapper.toDtos(entity.getGroups()));
-        teacherDto.setTests(mapper.testMapper.toDtos(entity.getTests()));
+//        teacherDto.setGroups(mapper.groupMapper.toDtos(entity.getGroups()));
+//        teacherDto.setTests(mapper.testMapper.toDtos(entity.getTests()));
         return teacherDto;
     }
 

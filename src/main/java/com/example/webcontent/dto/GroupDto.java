@@ -16,7 +16,7 @@ public class GroupDto {
     @NotNull
     private String name;
 
-    private List<StudentDto> students;
+//    private List<StudentDto> students;
 
     @JsonProperty("teacher_id")
     private Long teacherId;

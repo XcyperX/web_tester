@@ -6,9 +6,11 @@ import com.example.webcontent.model.Student;
 import com.example.webcontent.repository.StudentRepo;
 import com.example.webcontent.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;

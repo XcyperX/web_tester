@@ -6,9 +6,11 @@ import com.example.webcontent.model.Teacher;
 import com.example.webcontent.repository.TeacherRepo;
 import com.example.webcontent.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;

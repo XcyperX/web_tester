@@ -6,9 +6,11 @@ import com.example.webcontent.model.Question;
 import com.example.webcontent.repository.QuestionRepo;
 import com.example.webcontent.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
