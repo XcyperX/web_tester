@@ -1,4 +1,3 @@
-<#include "security.ftlh">
 <#import "login.ftlh" as l>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -14,7 +13,7 @@
                 <a class="nav-link" href="/">Пройти тест</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Тесты</a>
+                <a class="nav-link" href="/tests">Тесты</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/">Результаты тестирования</a>
@@ -24,8 +23,6 @@
             </li>
         </ul>
 
-        <div class="navbar-text mr-3">${name}</div>
-        <div class="navbar-text mr-3">${role}</div>
         <@l.logout />
     </div>
 </nav>

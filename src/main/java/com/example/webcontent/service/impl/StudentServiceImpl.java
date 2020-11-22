@@ -8,6 +8,7 @@ import com.example.webcontent.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +49,11 @@ public class StudentServiceImpl implements StudentService {
             throw new RuntimeException("Ошибка, нет такого студента!");
         }
         studentRepo.deleteById(id);
+    }
+
+    @Override
+    public List<StudentDto> findAll() {
+        List<StudentDto> studentDtos = studentMapper.toDtos(studentRepo.findAll());
+        return studentDtos;
     }
 }

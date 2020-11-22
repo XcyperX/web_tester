@@ -12,10 +12,13 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
-public class Teacher implements UserDetails {
+public class Teacher implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(nullable = false)
     private String name;
@@ -78,6 +81,6 @@ public class Teacher implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getName();
+        return getEmail();
     }
 }

@@ -20,6 +20,6 @@ public class TestDto {
     private List<QuestionDto> questions;
 
     @NotNull
-    @JsonProperty("teacher_id")
+    @JsonProperty("owner_id")
     private Long ownerId;
 }

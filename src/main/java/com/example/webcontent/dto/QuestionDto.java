@@ -19,7 +19,6 @@ public class QuestionDto {
     @NotNull
     private List<AnswerDto> answers;
 
-    @NotNull
     @JsonProperty("test_id")
     private Long testId;
 }

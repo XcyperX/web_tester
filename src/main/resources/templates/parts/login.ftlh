@@ -7,7 +7,10 @@
                         <label>Добавить нового преподавателя</label>
                     </div>
                     <div class="form-row">
-<!--                        <input id="id" type="hidden" name="id">-->
+                        <label>Почта</label>
+                        <input id="email" type="text" name="email" class="form-control" placeholder="Введите почту">
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Имя</label>
                             <input id="name" type="text" name="name" class="form-control" placeholder="Введите имя">

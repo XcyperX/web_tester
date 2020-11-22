@@ -17,6 +17,7 @@ public class TeacherMapper implements BaseMapperService<Teacher, TeacherDto> {
     public Teacher toEntity(TeacherDto dto) {
         Teacher teacher = new Teacher();
         teacher.setId(dto.getId());
+        teacher.setEmail(dto.getEmail());
         teacher.setName(dto.getName());
         teacher.setSurname(dto.getSurname());
         teacher.setPassword(dto.getPassword());
@@ -30,6 +31,7 @@ public class TeacherMapper implements BaseMapperService<Teacher, TeacherDto> {
     public TeacherDto toDto(Teacher entity) {
         TeacherDto teacherDto = new TeacherDto();
         teacherDto.setId(entity.getId());
+        teacherDto.setEmail(entity.getEmail());
         teacherDto.setName(entity.getName());
         teacherDto.setSurname(entity.getSurname());
         teacherDto.setPassword(entity.getPassword());

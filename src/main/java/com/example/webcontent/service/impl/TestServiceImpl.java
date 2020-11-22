@@ -8,6 +8,8 @@ import com.example.webcontent.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,5 +51,12 @@ public class TestServiceImpl implements TestService {
             throw new RuntimeException("Ошибка, нет такого теста!");
         }
         testRepo.deleteById(id);
+    }
+
+    @Override
+    public List<TestDto> findAll() {
+        List<TestDto> testDtos = new ArrayList<>();
+        testRepo.findAll().forEach(test -> testDtos.add(testMapper.toDto(test)));
+        return testDtos;
     }
 }

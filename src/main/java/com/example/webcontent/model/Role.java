@@ -2,7 +2,7 @@ package com.example.webcontent.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
-public enum Role implements GrantedAuthority {
+public enum Role implements GrantedAuthority{
     ADMIN("Админ"),
     OWNER("Царь");
 
