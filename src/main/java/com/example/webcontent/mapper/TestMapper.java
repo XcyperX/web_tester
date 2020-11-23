@@ -22,7 +22,7 @@ public class TestMapper implements BaseMapperService<Test, TestDto>{
         Teacher teacher = new Teacher();
         teacher.setId(dto.getOwnerId());
         test.setOwner(teacher);
-//        test.setQuestions(mapper.questionMapper.toEntities(dto.getQuestions()));
+        test.setQuestions(mapper.questionMapper.toEntities(dto.getQuestions()));
         return test;
     }
 
@@ -32,7 +32,7 @@ public class TestMapper implements BaseMapperService<Test, TestDto>{
         testDto.setId(entity.getId());
         testDto.setName(entity.getName());
         testDto.setOwnerId(entity.getOwner().getId());
-//        testDto.setQuestions(mapper.questionMapper.toDtos(entity.getQuestions()));
+        testDto.setQuestions(mapper.questionMapper.toDtos(entity.getQuestions()));
         return testDto;
     }
 

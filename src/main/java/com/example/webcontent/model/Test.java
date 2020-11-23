@@ -10,17 +10,17 @@ import java.util.List;
 @Data
 public class Test {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Question> questions;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Teacher owner;
 }

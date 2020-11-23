@@ -23,7 +23,7 @@ public class QuestionMapper implements BaseMapperService<Question, QuestionDto>{
         question.setAnswers(mapper.answerMapper.toEntities(dto.getAnswers()));
         Test test = new Test();
         test.setId(dto.getTestId());
-        question.setTest(test);
+        question.setTest(null);
         question.setText(dto.getText());
         return question;
     }

@@ -4,10 +4,7 @@ import com.example.webcontent.dto.GroupDto;
 import com.example.webcontent.dto.StudentDto;
 import com.example.webcontent.dto.TeacherDto;
 import com.example.webcontent.dto.TestDto;
-import com.example.webcontent.service.GroupService;
-import com.example.webcontent.service.StudentService;
-import com.example.webcontent.service.TeacherService;
-import com.example.webcontent.service.TestService;
+import com.example.webcontent.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +24,8 @@ public class RestApiController {
     private StudentService studentService;
     @Autowired
     private TestService testService;
+    @Autowired
+    private QuestionService questionService;
 
     @PostMapping("/groups")
     public GroupDto groupSave(@RequestBody @Valid GroupDto groupDto) {
@@ -45,6 +44,7 @@ public class RestApiController {
 
     @PostMapping("/tests")
     public TestDto testDto(@RequestBody @Valid TestDto testDto) {
+
         return testService.save(testDto);
     }
 

@@ -53,21 +53,45 @@ submitNewStudent = () => {
 }
 
 submitNewTest = () => {
-    let createTest = document.forms.createTest;
-    for (let i in createTest.elements) {
-        let field = createTest.elements[i];
-        if (field.type === 'text' || field.type === 'select-one') {
-            if (typeof test[field.id] === 'number') {
-                test[field.id] = Number(field.value);
-            } else {
-                test[field.id] = field.value;
-            }
-        } else if (field.type === 'file') {
-            obj['note'] = field.files[0];
+    let tempQuestion = {...question};
+    let tempTest = {...test};
+    tempTest.questions = [];
+    tempTest["name"] = document.getElementById("nameTest").value;
+    tempTest["owner_id"] = document.getElementById("id_owner").getAttribute("value");
+    let questions = document.getElementsByClassName("question");
+    for (let i = 0; i < questions.length; ++i) {
+        tempQuestion.answers = [];
+        tempQuestion["text"] = questions[i].getElementsByClassName("textQuestion")[0].value;
+        let answers = questions[i].getElementsByClassName("answer");
+        for (let j = 0; j < answers.length; ++j) {
+            answer["text"] = answers[j].getElementsByClassName("textAnswer")[0].value;
+            answer["is_correct"] = answers[j].getElementsByClassName("defaultCheck")[0].getAttribute("value");
+            tempQuestion.answers.push(JSON.parse(JSON.stringify(answer)));
         }
+        let questionJson = JSON.stringify(tempQuestion);
+        tempTest["questions"].push(JSON.parse(questionJson));
     }
-    console.log(test);
-    createNewTest(test);
+    console.log(tempTest);
+    createNewTest(tempTest);
+}
+
+const answer = {
+    id: -1,
+    text: "",
+    is_correct: false
+}
+
+const question = {
+    id: -1,
+    text: "",
+    answers: []
+}
+
+const test = {
+    id: -1,
+    name: "",
+    owner_id: -1,
+    questions: []
 }
 
 const user = {
@@ -82,7 +106,7 @@ const user = {
 const group = {
     id: -1,
     name: "",
-    teacher_id: 1
+    teacher_id: 2
 }
 
 const student = {
@@ -90,12 +114,6 @@ const student = {
     name: "",
     surname: "",
     group_id: -1
-}
-
-const test = {
-    id: -1,
-    name: "",
-    teacher_id: 1
 }
 
 createNewUser = (user) => {
@@ -214,15 +232,51 @@ sendRequest = (method, url, body) => {
 }
 
 function addAnswers() {
-	if (x < 10) {
-    var str = '<div class="form-check">' +
-                '<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">' +
-                '<input id="name" type="text" name="groupName" class="form-control" placeholder="Введите текст вопроса">' +
-               '</div>';
-    document.innerHTML = str;
-    x++;
-  } else
-  {
-  	alert('STOP it!');
-  }
+    var str = `<div class="form-check mb-2 answer">
+                    <input class="form-check-input defaultCheck" type="checkbox" value="false" id="checkbox_check"
+                           onclick="testCheck(this)">
+                    <input id="textAnswer" type="text" name="textAnswer" class="form-control textAnswer"
+                           placeholder="Введите ответ">
+                </div>`;
+    let answer = document.createRange().createContextualFragment(str);
+    var questions = document.getElementsByClassName("question");
+    var lastQuestion = questions[questions.length - 1].getElementsByClassName("answers");
+    lastQuestion[0].appendChild(answer);
+}
+
+function addQuestions() {
+    var str = `<div class="question">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Введите вопрос</label>
+                        <input id="textQuestion" type="text" name="textQuestion" class="form-control textQuestion"
+                               placeholder="Введите текст вопроса">
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="answers">
+                        <div class="form-check mb-2 answer">
+                            <input class="form-check-input defaultCheck" type="checkbox" value="false" id="checkbox_check"
+                                   onclick="testCheck(this)">
+                            <input id="textAnswer" type="text" name="textAnswer" class="form-control textAnswer"
+                                   placeholder="Введите ответ">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input class="btn btn-primary mb-4" type="button" onclick="addAnswers()" value="Добавить ответ">
+                    </div>
+                </div>
+            </div>`;
+    let question = document.createRange().createContextualFragment(str);
+    var questions = document.getElementsByClassName("question");
+    questions[questions.length - 1].getElementsByClassName("btn")[0].remove();
+    document.getElementsByClassName("questions")[0].appendChild(question);
+}
+
+function testCheck(elem) {
+    if (elem.checked) {
+        elem.setAttribute("value", "true");
+    } else {
+        elem.setAttribute("value", "false");
+    }
 }

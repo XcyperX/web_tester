@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -18,7 +18,7 @@ public class Answer {
     @Column(nullable = false)
     private Boolean isCorrect;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     private Question question;
 }

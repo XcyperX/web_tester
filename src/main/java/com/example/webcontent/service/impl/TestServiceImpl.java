@@ -1,8 +1,13 @@
 package com.example.webcontent.service.impl;
 
 import com.example.webcontent.dto.TestDto;
+import com.example.webcontent.mapper.Mapper;
 import com.example.webcontent.mapper.TestMapper;
+import com.example.webcontent.model.Answer;
+import com.example.webcontent.model.Question;
 import com.example.webcontent.model.Test;
+import com.example.webcontent.repository.AnswerRepo;
+import com.example.webcontent.repository.QuestionRepo;
 import com.example.webcontent.repository.TestRepo;
 import com.example.webcontent.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +22,13 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private TestMapper testMapper;
     @Autowired
+    private Mapper mapper;
+    @Autowired
     private TestRepo testRepo;
+    @Autowired
+    private AnswerRepo answerRepo;
+    @Autowired
+    private QuestionRepo questionRepo;
 
     @Override
     public TestDto getById(Long id) {
