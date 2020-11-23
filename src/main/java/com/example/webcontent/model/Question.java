@@ -17,10 +17,10 @@ public class Question {
     private String text;
 
     @Column(nullable = false)
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Answer> answers;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "test_id", referencedColumnName = "id")
     private Test test;
 }

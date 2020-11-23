@@ -18,7 +18,7 @@ public class Answer {
     @Column(nullable = false)
     private Boolean isCorrect;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     private Question question;
 }

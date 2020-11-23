@@ -17,7 +17,7 @@ public class Test {
     private String name;
 
     @Column(nullable = false)
-    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "test", cascade = {CascadeType.ALL})
     private List<Question> questions;
 
     @ManyToOne

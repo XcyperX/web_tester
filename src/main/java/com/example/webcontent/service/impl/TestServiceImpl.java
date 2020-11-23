@@ -41,7 +41,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public TestDto save(TestDto testDto) {
-        Test test = testMapper.toEntity(testDto);
+        Test test = Mapper.toEntity(testDto);
         return testMapper.toDto(testRepo.save(test));
     }
 
