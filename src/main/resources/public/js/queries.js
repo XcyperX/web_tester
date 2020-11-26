@@ -75,6 +75,12 @@ submitNewTest = () => {
     createNewTest(tempTest);
 }
 
+submitNewTestResult = () => {
+    testResultJson.test_id = testResult.test_id;
+    testResultJson.student_id = document.getElementById("student_id").value;
+    testResultJson.result = 
+}
+
 const answer = {
     id: -1,
     text: "",
@@ -106,7 +112,7 @@ const user = {
 const group = {
     id: -1,
     name: "",
-    teacher_id: 2
+    teacher_id: 1
 }
 
 const student = {
@@ -114,6 +120,13 @@ const student = {
     name: "",
     surname: "",
     group_id: -1
+}
+
+const testResultJson = {
+    id: -1,
+    test_id: -1,
+    student_id: -1,
+    result: 0
 }
 
 createNewUser = (user) => {
@@ -159,6 +172,7 @@ createNewStudent = (student) => {
         }
     });
 }
+
 //updatesUser = (user) => {
 //    console.log(user);
 //    sendRequest('PUT', '/api/users/' + user.user_id, user).then(response => {
@@ -279,4 +293,127 @@ function testCheck(elem) {
     } else {
         elem.setAttribute("value", "false");
     }
+}
+let teachers;
+let testResult;
+let optionNone = `<option value="none"></option>`;
+
+$(document).ready(function(){
+    $('#teacher_id').change(function(){
+        getTeacherById(this.value).then(teacher => {
+            teachers = teacher;
+            appendSelectGroup(teacher);
+            appendSelectTest(teacher);
+        });
+    });
+});
+
+getTeacherById = (teacherId) => {
+    console.log(teacherId);
+    return sendRequest('GET', '/api/teachers/' + teacherId).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log(response);
+        }
+    });
+}
+
+function appendSelectGroup(teacher) {
+    console.log(teacher);
+    let select = document.getElementById('group_id');
+    select.disabled = false;
+    select.innerHTML = "";
+    select.appendChild(document.createRange().createContextualFragment(optionNone));
+    for (let i in teacher.groups) {
+        let option = document.createElement('option');
+        option.value = teacher.groups[i].group_id;
+        option.innerHTML = teacher.groups[i].name;
+        select.appendChild(option);
+    }
+}
+
+$(document).ready(function(){
+    $('#group_id').change(function(){
+        appendSelectStudents(this.value);
+    });
+});
+
+function appendSelectStudents(groupId) {
+    let select = document.getElementById('student_id');
+    select.disabled = false;
+    select.innerHTML = "";
+    select.appendChild(document.createRange().createContextualFragment(optionNone));
+    for (let i in teachers.groups) {
+        if (teachers.groups[i].group_id === Number(groupId)) {
+            for (let j in teachers.groups[i].students) {
+                let option = document.createElement('option');
+                option.value = teachers.groups[i].students[j].student_id;
+                option.innerHTML = teachers.groups[i].students[j].name;
+                select.appendChild(option);
+            }
+        }
+    }
+}
+
+function appendSelectTest(teacher) {
+    let select = document.getElementById('test_id');
+    select.disabled = false;
+    select.innerHTML = "";
+    select.appendChild(document.createRange().createContextualFragment(optionNone));
+    for (let i in teacher.tests) {
+        let option = document.createElement('option');
+        option.value = teachers.tests[i].test_id;
+        option.innerHTML = teachers.tests[i].name;
+        select.appendChild(option);
+    }
+}
+
+function hiddenElements() {
+    document.getElementById('data_block').hidden = true;
+    document.getElementById('break_test').hidden = false;
+    createTest();
+}
+
+function createTest() {
+    let test_block = document.getElementById('test_block');
+    for (let i in teachers.tests) {
+        if (teachers.tests[i].test_id === Number(document.getElementById("test_id").value)) {
+            testResult = teachers.tests[i];
+            for (let j in teachers.tests[i].questions) {
+                let question = `<div class="question">
+                                    <div class="form-row">
+                                        <div class="form-group" id="question_text">
+                                            <label>${teachers.tests[i].questions[j].text}</label>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="answers">
+                                            ${getAnswers(teachers.tests[i].questions[j])}
+                                        </div>
+                                    </div>
+                                </div>`
+                question = document.createRange().createContextualFragment(question);
+                test_block.appendChild(question);
+            }
+        }
+    }
+}
+
+function getAnswers(answers) {
+    let divAnswers = "";
+    for (let i in answers.answers) {
+        let answer = `<div class="form-check mb-2 answer">
+                        <input class="form-check-input defaultCheck" type="checkbox" value="false"
+                               id="checkbox_check"
+                               onclick="testCheck(this)">
+                        <label id="textAnswer">${answers.answers[i].text}</label>
+                    </div>`
+        divAnswers += answer;
+    }
+    return divAnswers;
+}
+
+function breakTest() {
+
 }

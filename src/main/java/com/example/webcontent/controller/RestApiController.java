@@ -1,15 +1,10 @@
 package com.example.webcontent.controller;
 
-import com.example.webcontent.dto.GroupDto;
-import com.example.webcontent.dto.StudentDto;
-import com.example.webcontent.dto.TeacherDto;
-import com.example.webcontent.dto.TestDto;
+import com.example.webcontent.dto.*;
 import com.example.webcontent.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,6 +21,8 @@ public class RestApiController {
     private TestService testService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private TestResultService testResultService;
 
     @PostMapping("/groups")
     public GroupDto groupSave(@RequestBody @Valid GroupDto groupDto) {
@@ -44,9 +41,16 @@ public class RestApiController {
 
     @PostMapping("/tests")
     public TestDto testDto(@RequestBody @Valid TestDto testDto) {
-
         return testService.save(testDto);
     }
 
+    @GetMapping("/teachers/{id}")
+    public ResponseEntity<?> getTeacher(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(teacherService.getById(id));
+    }
 
+    @PostMapping("/test/result")
+    public TestResultDto testResultDto(@RequestBody @Valid TestResultDto testResultDto) {
+        return testResultService.save(testResultDto);
+    }
 }

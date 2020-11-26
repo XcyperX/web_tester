@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,7 +33,7 @@ public class TeacherDto {
 //    @JsonProperty("role_id")
     private String role;
 
-//    private List<GroupDto> groups;
-//
-//    private List<TestDto> tests;
+    private List<GroupDto> groups;
+
+    private List<TestDto> tests;
 }

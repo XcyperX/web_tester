@@ -3,6 +3,7 @@ package com.example.webcontent.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Group {
     private String name;
 
     @OneToMany(mappedBy = "group")
-    private List<Student> students;
+    private List<Student> students = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")

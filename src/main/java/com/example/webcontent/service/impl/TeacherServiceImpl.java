@@ -8,6 +8,8 @@ import com.example.webcontent.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,5 +51,12 @@ public class TeacherServiceImpl implements TeacherService {
             throw new RuntimeException("Ошибка, нет такого препода!");
         }
         teacherRepo.deleteById(id);
+    }
+
+    @Override
+    public List<TeacherDto> findAll() {
+        List<TeacherDto> teacherDtos = new ArrayList<>();
+        teacherRepo.findAll().forEach(teacher -> teacherDtos.add(teacherMapper.toDto(teacher)));
+        return teacherDtos;
     }
 }

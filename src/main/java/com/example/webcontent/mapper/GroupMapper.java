@@ -18,7 +18,6 @@ public class GroupMapper implements BaseMapperService<Group, GroupDto>{
         Group group = new Group();
         group.setId(dto.getId());
         group.setName(dto.getName());
-//        group.setStudents(mapper.studentMapper.toEntities(dto.getStudents()));
         Teacher teacher = new Teacher();
         teacher.setId(dto.getTeacherId());
         group.setTeacher(teacher);
@@ -30,7 +29,7 @@ public class GroupMapper implements BaseMapperService<Group, GroupDto>{
         GroupDto groupDto = new GroupDto();
         groupDto.setId(entity.getId());
         groupDto.setName(entity.getName());
-//        groupDto.setStudents(mapper.studentMapper.toDtos(entity.getStudents()));
+        groupDto.setStudents(mapper.studentMapper.toDtos(entity.getStudents()));
         groupDto.setTeacherId(entity.getTeacher().getId());
         return groupDto;
     }

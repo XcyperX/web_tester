@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -33,10 +34,10 @@ public class Teacher implements UserDetails{
     private Role role;
 
     @OneToMany(mappedBy = "teacher")
-    private List<Group> groups;
+    private List<Group> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")
-    private List<Test> tests;
+    private List<Test> tests = new ArrayList<>();
 
     public String getTeacherName() {
         return getName();

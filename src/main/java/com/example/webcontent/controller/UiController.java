@@ -1,8 +1,8 @@
 package com.example.webcontent.controller;
 
-import com.example.webcontent.model.Role;
 import com.example.webcontent.service.GroupService;
 import com.example.webcontent.service.StudentService;
+import com.example.webcontent.service.TeacherService;
 import com.example.webcontent.service.TestService;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.TemplateHashModel;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UiController {
@@ -21,6 +21,8 @@ public class UiController {
     private StudentService studentService;
     @Autowired
     private TestService testService;
+    @Autowired
+    private TeacherService teacherService;
 
     @GetMapping("/")
     public String main(Model model) {
@@ -45,12 +47,15 @@ public class UiController {
     @GetMapping("/tests")
     public String tests(Model model) {
         model.addAttribute("tests", testService.findAll());
-        return "/tests";
+        return "createTests";
     }
 
-    @GetMapping("tests/{id}")
-    public String addQuestions(@PathVariable("id") Long id, Model model) {
-
-        return "questions";
+    @GetMapping("/take/tests")
+    public String takeTest(Model model) {
+        model.addAttribute("tests", testService.findAll());
+        model.addAttribute("groups", groupService.findAll());
+        model.addAttribute("teachers", teacherService.findAll());
+        model.addAttribute("students", studentService.findAll());
+        return "tests";
     }
 }
