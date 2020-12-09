@@ -33,7 +33,7 @@ public class Teacher implements UserDetails{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<Group> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")

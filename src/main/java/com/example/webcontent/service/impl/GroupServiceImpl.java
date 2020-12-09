@@ -1,9 +1,11 @@
 package com.example.webcontent.service.impl;
 
 import com.example.webcontent.dto.GroupDto;
+import com.example.webcontent.dto.StudentDto;
 import com.example.webcontent.mapper.GroupMapper;
 import com.example.webcontent.mapper.Mapper;
 import com.example.webcontent.model.Group;
+import com.example.webcontent.model.Student;
 import com.example.webcontent.repository.GroupRepo;
 import com.example.webcontent.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;

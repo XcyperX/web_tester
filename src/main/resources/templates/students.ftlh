@@ -9,6 +9,7 @@
         <div class="card card-body">
             <div class="container">
                 <form id="createGroup" name="createGroup">
+                    <input id="teacher_id" name="teacher_id" value="${teacher}" hidden>
                     <div class="form-row">
                         <label>Добавить группу</label>
                     </div>

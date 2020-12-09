@@ -9,7 +9,7 @@
         <div class="collapse mb-2" id="listStudents">
             <div class="card card-body">
                 <div class="container">
-                    <input id="id_owner" type="hidden" name="id_owner" value="1">
+                    <input id="id_owner" type="hidden" name="id_owner" value="${teacher}">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Создать тест</label>

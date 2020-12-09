@@ -1,13 +1,12 @@
 package com.example.webcontent.controller;
 
-import com.example.webcontent.service.GroupService;
-import com.example.webcontent.service.StudentService;
-import com.example.webcontent.service.TeacherService;
-import com.example.webcontent.service.TestService;
+import com.example.webcontent.model.Teacher;
+import com.example.webcontent.service.*;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModelException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +22,8 @@ public class UiController {
     private TestService testService;
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private TestResultService testResultService;
 
     @GetMapping("/")
     public String main(Model model) {
@@ -30,9 +31,10 @@ public class UiController {
     }
 
     @GetMapping("/students")
-    public String students(Model model) {
-        model.addAttribute("groups", groupService.findAll());
-        model.addAttribute("students", studentService.findAll());
+    public String students(@AuthenticationPrincipal Teacher teacher, Model model) {
+        model.addAttribute("teacher", teacher.getId());
+        model.addAttribute("groups", teacherService.getById(teacher.getId()).getGroups());
+        model.addAttribute("students", teacherService.findAllStudents(teacher.getId()));
         return "/students";
     }
 
@@ -45,8 +47,9 @@ public class UiController {
     }
 
     @GetMapping("/tests")
-    public String tests(Model model) {
-        model.addAttribute("tests", testService.findAll());
+    public String tests(@AuthenticationPrincipal Teacher teacher, Model model) {
+        model.addAttribute("teacher", teacher.getId());
+        model.addAttribute("tests", teacherService.findAllTests(teacher.getId()));
         return "createTests";
     }
 
@@ -57,5 +60,14 @@ public class UiController {
         model.addAttribute("teachers", teacherService.findAll());
         model.addAttribute("students", studentService.findAll());
         return "tests";
+    }
+
+    @GetMapping("/result")
+    public String resultTest(@AuthenticationPrincipal Teacher teacher, Model model) {
+        model.addAttribute("teacher", teacher.getId());
+        model.addAttribute("students", teacherService.findAllStudents(teacher.getId()));
+        model.addAttribute("groups", teacherService.getById(teacher.getId()).getGroups());
+        model.addAttribute("result", testResultService.findAll());
+        return "testResult";
     }
 }

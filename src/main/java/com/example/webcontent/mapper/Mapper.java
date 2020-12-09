@@ -24,6 +24,8 @@ public class Mapper {
     public StudentMapper studentMapper;
     @Autowired
     public GroupMapper groupMapper;
+    @Autowired
+    public TestResultByStudentMapper testResultByStudentMapper;
 
     public static Test toEntity(TestDto testDto) {
         var test = new Test();

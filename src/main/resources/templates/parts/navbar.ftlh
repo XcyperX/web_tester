@@ -1,4 +1,5 @@
 <#import "login.ftlh" as l>
+<#include "security.ftlh">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">A.O.Tester ))</a>
@@ -12,17 +13,31 @@
             <li class="nav-item">
                 <a class="nav-link" href="/take/tests">Пройти тест</a>
             </li>
+            <#if isAdmin>
             <li class="nav-item">
                 <a class="nav-link" href="/tests">Тесты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Результаты тестирования</a>
+                <a class="nav-link" href="/result">Результаты тестирования</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/students">Обучающиеся</a>
             </li>
+            </#if>
         </ul>
 
-        <@l.logout />
+        <div class="navbar-text mr-3">${name}</div>
+        <div class="navbar-text mr-3">${role}</div>
+        <#if isAdmin>
+            <a href="/registration" class="btn btn-primary mr-3" type="button">Регистрация</a>
+        </#if>
+
+        <form action="/logout" method="post">
+            <#if isAdmin || isOwner>
+                <input type="submit" class="btn btn-primary mr-3" value="Выйти"/>
+            <#else>
+                <input type="submit" class="btn btn-primary mr-3" value="Войти"/>
+            </#if>
+        </form>
     </div>
 </nav>

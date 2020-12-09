@@ -1,6 +1,8 @@
 package com.example.webcontent.service.impl;
 
+import com.example.webcontent.dto.StudentDto;
 import com.example.webcontent.dto.TeacherDto;
+import com.example.webcontent.dto.TestDto;
 import com.example.webcontent.mapper.TeacherMapper;
 import com.example.webcontent.model.Teacher;
 import com.example.webcontent.repository.TeacherRepo;
@@ -58,5 +60,18 @@ public class TeacherServiceImpl implements TeacherService {
         List<TeacherDto> teacherDtos = new ArrayList<>();
         teacherRepo.findAll().forEach(teacher -> teacherDtos.add(teacherMapper.toDto(teacher)));
         return teacherDtos;
+    }
+
+    @Override
+    public List<StudentDto> findAllStudents(Long id) {
+        List<StudentDto> studentDtos = new ArrayList<>();
+        getById(id).getGroups().forEach(groupDto -> studentDtos.addAll(groupDto.getStudents()));
+        return studentDtos;
+    }
+
+    @Override
+    public List<TestDto> findAllTests(Long id) {
+        List<TestDto> testDtos = new ArrayList<>(getById(id).getTests());
+        return testDtos;
     }
 }

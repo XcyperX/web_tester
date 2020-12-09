@@ -49,7 +49,12 @@ public class RestApiController {
         return ResponseEntity.ok(teacherService.getById(id));
     }
 
-    @PostMapping("/test/result")
+    @GetMapping("/students/{id}/result")
+    public ResponseEntity<?> getStudentResult(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(testResultService.findByStudentId(id));
+    }
+
+    @PostMapping("/tests/result")
     public TestResultDto testResultDto(@RequestBody @Valid TestResultDto testResultDto) {
         return testResultService.save(testResultDto);
     }

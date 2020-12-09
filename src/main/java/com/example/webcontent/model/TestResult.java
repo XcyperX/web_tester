@@ -22,6 +22,4 @@ public class TestResult {
 
     @Column(nullable = false)
     private Integer result;
-
-
 }

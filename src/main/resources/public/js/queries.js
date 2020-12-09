@@ -30,6 +30,7 @@ submitNewGroup = () => {
             obj['note'] = field.files[0];
         }
     }
+
     console.log(group);
     createNewGroup(group);
 }
@@ -76,9 +77,24 @@ submitNewTest = () => {
 }
 
 submitNewTestResult = () => {
+    let tempQuestionToAnswer = {...questionToAnswer};
+    testResultJson.result = [];
     testResultJson.test_id = testResult.test_id;
-    testResultJson.student_id = document.getElementById("student_id").value;
-    testResultJson.result = 
+    testResultJson.student_id = Number(document.getElementById("student_id").value);
+    let questions = document.getElementsByClassName("question");
+    for (let i = 0; i < questions.length; ++i) {
+        tempQuestionToAnswer.question_id = Number(questions[i].getAttribute("id"));
+        let answers = questions[i].getElementsByClassName("answer");
+        for (let j = 0; j < answers.length; ++j) {
+            console.log(answers[j].getElementsByClassName("defaultCheck")[0].getAttribute("value"));
+            if (answers[j].getElementsByClassName("defaultCheck")[0].getAttribute("value") === "true") {
+                tempQuestionToAnswer.answer_id = Number(answers[j].getElementsByTagName("label")[0].getAttribute("id"));
+            }
+        }
+        testResultJson.result.push(JSON.parse(JSON.stringify(tempQuestionToAnswer)));
+    }
+    console.log(testResultJson);
+    createNewStudentResult(testResultJson);
 }
 
 const answer = {
@@ -112,7 +128,7 @@ const user = {
 const group = {
     id: -1,
     name: "",
-    teacher_id: 1
+    teacher_id: -1
 }
 
 const student = {
@@ -126,7 +142,12 @@ const testResultJson = {
     id: -1,
     test_id: -1,
     student_id: -1,
-    result: 0
+    result: []
+}
+
+const questionToAnswer = {
+    question_id: -1,
+    answer_id: -1
 }
 
 createNewUser = (user) => {
@@ -164,6 +185,17 @@ createNewTest = (test) => {
 
 createNewStudent = (student) => {
     sendRequest('POST', '/api/students', student).then(response => {
+        if (response.ok) {
+            console.log(response);
+            document.location.reload(true);
+        } else {
+            console.log(response);
+        }
+    });
+}
+
+createNewStudentResult = (result) => {
+    sendRequest('POST', '/api/tests/result', result).then(response => {
         if (response.ok) {
             console.log(response);
             document.location.reload(true);
@@ -308,6 +340,15 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function(){
+    $('#student_id').change(function(){
+        getStudentResultById(this.value).then(student => {
+            insertSudentResult(student);
+        });
+    });
+});
+
+
 getTeacherById = (teacherId) => {
     console.log(teacherId);
     return sendRequest('GET', '/api/teachers/' + teacherId).then(response => {
@@ -319,8 +360,17 @@ getTeacherById = (teacherId) => {
     });
 }
 
+getStudentResultById = (studentId) => {
+    return sendRequest('GET', '/api/students/' + studentId + '/result').then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log(response);
+        }
+    });
+}
+
 function appendSelectGroup(teacher) {
-    console.log(teacher);
     let select = document.getElementById('group_id');
     select.disabled = false;
     select.innerHTML = "";
@@ -335,9 +385,34 @@ function appendSelectGroup(teacher) {
 
 $(document).ready(function(){
     $('#group_id').change(function(){
-        appendSelectStudents(this.value);
+        if (document.getElementById("id_owner") !== null ) {
+            getTeacherById(Number(document.getElementById("id_owner").getAttribute("value"))).then(teacher => {
+                appendSelectStudentsResult(teacher, this.value)
+            });
+        } else {
+            appendSelectStudents(this.value);
+            console.log("Хуй соси");
+        }
     });
 });
+
+function appendSelectStudentsResult(teacher, groupId) {
+    console.log(teacher);
+    let select = document.getElementById('student_id');
+    select.disabled = false;
+    select.innerHTML = "";
+    select.appendChild(document.createRange().createContextualFragment(optionNone));
+    for (let i in teacher.groups) {
+        if (teacher.groups[i].group_id === Number(groupId)) {
+            for (let j in teacher.groups[i].students) {
+                let option = document.createElement('option');
+                option.value = teacher.groups[i].students[j].student_id;
+                option.innerHTML = teacher.groups[i].students[j].name;
+                select.appendChild(option);
+            }
+        }
+    }
+}
 
 function appendSelectStudents(groupId) {
     let select = document.getElementById('student_id');
@@ -381,7 +456,7 @@ function createTest() {
         if (teachers.tests[i].test_id === Number(document.getElementById("test_id").value)) {
             testResult = teachers.tests[i];
             for (let j in teachers.tests[i].questions) {
-                let question = `<div class="question">
+                let question = `<div id="${teachers.tests[i].questions[j].question_id}" class="question">
                                     <div class="form-row">
                                         <div class="form-group" id="question_text">
                                             <label>${teachers.tests[i].questions[j].text}</label>
@@ -407,13 +482,23 @@ function getAnswers(answers) {
                         <input class="form-check-input defaultCheck" type="checkbox" value="false"
                                id="checkbox_check"
                                onclick="testCheck(this)">
-                        <label id="textAnswer">${answers.answers[i].text}</label>
+                        <label id="${answers.answers[i].answer_id}">${answers.answers[i].text}</label>
                     </div>`
         divAnswers += answer;
     }
     return divAnswers;
 }
 
-function breakTest() {
+function insertSudentResult(studentResult) {
+    let tableStudent = document.getElementById("studentResult");
+    while (tableStudent.hasChildNodes()) {
+        tableStudent.removeChild(tableStudent.lastChild);
+    }
+    for (let i in studentResult) {
+        let row = tableStudent.insertRow(-1)
+        row.insertCell(-1).innerHTML = studentResult[i].name;
+        row.insertCell(-1).innerHTML = studentResult[i].nameTest;
+        row.insertCell(-1).innerHTML = studentResult[i].result;
+    }
 
 }
