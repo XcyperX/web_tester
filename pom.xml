@@ -18,11 +18,11 @@
     <name>serving-web-content</name>
     <description>Demo project for Spring Boot</description>
 
-    <!--<properties>-->
-        <!--<java.version>11</java.version>-->
+    <properties>
+        <java.version>11</java.version>
         <!--<maven.compiler.release>11</maven.compiler.release>-->
-        <!--<lombok.version>1.18.12</lombok.version>-->
-    <!--</properties>-->
+        <lombok.version>1.18.12</lombok.version>
+    </properties>
 
     <dependencies>
         <dependency>
