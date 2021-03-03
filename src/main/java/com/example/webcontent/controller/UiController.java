@@ -1,5 +1,6 @@
 package com.example.webcontent.controller;
 
+import com.example.webcontent.model.Role;
 import com.example.webcontent.model.Teacher;
 import com.example.webcontent.report.PDFGenerator;
 import com.example.webcontent.service.*;
@@ -73,7 +74,7 @@ public class UiController {
     public String takeTest(Model model) {
         model.addAttribute("tests", testService.findAll());
         model.addAttribute("groups", groupService.findAll());
-        model.addAttribute("teachers", teacherService.findAll());
+        model.addAttribute("teachers", teacherService.findAllTeacherByRole(Role.ADMIN));
         model.addAttribute("students", studentService.findAll());
         return "tests";
     }

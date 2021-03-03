@@ -6,7 +6,7 @@
         <select id="teacher_id" class="form-control mb-4">
             <option value="none"></option>
             <#list teachers as teacher>
-                <option value="${teacher.id}">${teacher.name}</option>
+                <option value="${teacher.id}">${teacher.name} ${teacher.surname}</option>
             </#list>
         </select>
 

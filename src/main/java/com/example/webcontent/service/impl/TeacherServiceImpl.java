@@ -4,6 +4,7 @@ import com.example.webcontent.dto.StudentDto;
 import com.example.webcontent.dto.TeacherDto;
 import com.example.webcontent.dto.TestDto;
 import com.example.webcontent.mapper.TeacherMapper;
+import com.example.webcontent.model.Role;
 import com.example.webcontent.model.Teacher;
 import com.example.webcontent.repository.TeacherRepo;
 import com.example.webcontent.service.TeacherService;
@@ -73,5 +74,12 @@ public class TeacherServiceImpl implements TeacherService {
     public List<TestDto> findAllTests(Long id) {
         List<TestDto> testDtos = new ArrayList<>(getById(id).getTests());
         return testDtos;
+    }
+
+    @Override
+    public List<TeacherDto> findAllTeacherByRole(Role role) {
+        List<TeacherDto> teacherDtos = new ArrayList<>();
+        teacherRepo.findAllByRole(role).forEach(teacher -> teacherDtos.add(teacherMapper.toDto(teacher)));
+        return teacherDtos;
     }
 }
