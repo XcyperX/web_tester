@@ -34,9 +34,31 @@ public class RestApiController {
         return teacherService.save(teacherDto);
     }
 
+    @PutMapping("/teachers/{id}")
+    public TeacherDto updateTeacherDto(@PathVariable("id") Long id, @RequestBody @Valid TeacherDto teacherDto) {
+        teacherDto.setId(id);
+        return teacherService.save(teacherDto);
+    }
+
+    @DeleteMapping("/teachers/{id}")
+    public void deleteTeacherDto(@PathVariable("id") Long id) {
+        teacherService.delete(id);
+    }
+
     @PostMapping("/students")
     public StudentDto studentDto(@RequestBody @Valid StudentDto studentDto) {
         return studentService.save(studentDto);
+    }
+
+    @PutMapping("/students/{id}")
+    public StudentDto updateStudent(@PathVariable("id") Long id, @RequestBody @Valid StudentDto studentDto) {
+        studentDto.setId(id);
+        return studentService.update(studentDto);
+    }
+
+    @DeleteMapping("/students/{id}")
+    public void deleteStudentDto(@PathVariable("id") Long id) {
+        studentService.delete(id);
     }
 
     @PostMapping("/tests")

@@ -3,8 +3,8 @@ package com.example.webcontent.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority{
-    ADMIN("Админ"),
-    OWNER("Царь");
+    ADMIN("Преподаватель"),
+    OWNER("Администратор");
 
     private String role;
 

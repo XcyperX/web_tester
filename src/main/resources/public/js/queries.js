@@ -97,6 +97,29 @@ submitNewTestResult = () => {
     createNewStudentResult(testResultJson);
 }
 
+submitUpdateStudent = (student_id) => {
+    let legacyStudent = document.getElementById("updateStudent_" + student_id);
+    student.name = legacyStudent.querySelector("#name").value;
+    student.surname = legacyStudent.querySelector("#surname").value;
+    student.group_id = legacyStudent.querySelector("#group_id").value;
+    student.student_id = student_id;
+    console.log(student);
+    updateStudent(student, student_id);
+}
+
+submitUpdateTeacher = (teacher_id) => {
+    let legacyTeacher = document.getElementById("updateTeacher_" + teacher_id);
+    user.teacher_id = teacher_id;
+    user.email = legacyTeacher.querySelector("#email").value;
+    user.name = legacyTeacher.querySelector("#name").value;
+    user.surname = legacyTeacher.querySelector("#surname").value;
+    user.password = legacyTeacher.querySelector("#password").value;
+    user.role = legacyTeacher.querySelector("#role").value;
+
+    console.log(user);
+    updateTeacher(user, teacher_id);
+}
+
 const answer = {
     id: -1,
     text: "",
@@ -161,6 +184,28 @@ createNewUser = (user) => {
     });
 }
 
+updateTeacher = (teacher, teacher_id) => {
+    sendRequest('PUT', '/api/teachers/' + teacher_id, teacher).then(response => {
+        if (response.ok) {
+            console.log(response);
+            document.location.reload(true);
+        } else {
+            console.log(response);
+        }
+    });
+}
+
+deleteTeacher = (teacher_id) => {
+    sendRequest('DELETE', '/api/teachers/' + teacher_id).then(response => {
+        if (response.ok) {
+            console.log(response);
+            document.location.reload(true);
+        } else {
+            console.log(response);
+        }
+    });
+}
+
 createNewGroup = (group) => {
     sendRequest('POST', '/api/groups', group).then(response => {
         if (response.ok) {
@@ -185,6 +230,28 @@ createNewTest = (test) => {
 
 createNewStudent = (student) => {
     sendRequest('POST', '/api/students', student).then(response => {
+        if (response.ok) {
+            console.log(response);
+            document.location.reload(true);
+        } else {
+            console.log(response);
+        }
+    });
+}
+
+updateStudent = (student, student_id) => {
+    sendRequest('PUT', '/api/students/' + student_id, student).then(response => {
+        if (response.ok) {
+            console.log(response);
+            document.location.reload(true);
+        } else {
+            console.log(response);
+        }
+    });
+}
+
+deleteStudent = (student_id) => {
+    sendRequest('DELETE', '/api/students/' + student_id).then(response => {
         if (response.ok) {
             console.log(response);
             document.location.reload(true);

@@ -10,27 +10,32 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/take/tests">Пройти тест</a>
-            </li>
             <#if isAdmin>
-            <li class="nav-item">
-                <a class="nav-link" href="/tests">Тесты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/result">Результаты тестирования</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/students">Обучающиеся</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tests">Тесты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/result">Результаты тестирования</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/students">Обучающиеся</a>
+                </li>
+            <#elseif isOwner>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teachers">Преподаватели</a>
+                </li>
+            <#else>
+                <li class="nav-item">
+                    <a class="nav-link" href="/take/tests">Пройти тест</a>
+                </li>
             </#if>
         </ul>
 
         <div class="navbar-text mr-3">${name}</div>
         <div class="navbar-text mr-3">${role}</div>
-        <#if isAdmin>
-            <a href="/registration" class="btn btn-primary mr-3" type="button">Регистрация</a>
-        </#if>
+<#--        <#if isAdmin>-->
+<#--            <a href="/registration" class="btn btn-primary mr-3" type="button">Регистрация</a>-->
+<#--        </#if>-->
 
         <form action="/logout" method="post">
             <#if isAdmin || isOwner>

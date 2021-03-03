@@ -14,6 +14,9 @@
         <label>Выберите студента</label>
         <select id="student_id" class="form-control mb-4" disabled>
         </select>
+
+        <a class="btn btn-primary btn-block mb-2" href="/pdf/request">Сформировать отчет</a>
+
     </div>
 
     <div class="container">

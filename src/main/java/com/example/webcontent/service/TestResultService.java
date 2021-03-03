@@ -12,4 +12,5 @@ import java.util.List;
 public interface TestResultService extends CRUDService<TestResultDto, Long> {
     List<TestResult> findAll();
     List<TestResultByStudentDto> findByStudentId(Long id);
+    List<TestResultByStudentDto> findByTeacherId(Long id);
 }

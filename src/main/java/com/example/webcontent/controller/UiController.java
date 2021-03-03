@@ -1,16 +1,23 @@
 package com.example.webcontent.controller;
 
 import com.example.webcontent.model.Teacher;
+import com.example.webcontent.report.PDFGenerator;
 import com.example.webcontent.service.*;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModelException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.ByteArrayInputStream;
 
 @Controller
 public class UiController {
@@ -46,6 +53,15 @@ public class UiController {
         return "/registration";
     }
 
+    @GetMapping("/teachers")
+    public String listTeachers(Model model) throws TemplateModelException {
+        TemplateHashModel roles = BeansWrapper.getDefaultInstance().getEnumModels();
+        TemplateHashModel myRoles = (TemplateHashModel) roles.get("com.example.webcontent.model.Role");
+        model.addAttribute("roles", myRoles);
+        model.addAttribute("teachers", teacherService.findAll());
+        return "listTeachers";
+    }
+
     @GetMapping("/tests")
     public String tests(@AuthenticationPrincipal Teacher teacher, Model model) {
         model.addAttribute("teacher", teacher.getId());
@@ -69,5 +85,20 @@ public class UiController {
         model.addAttribute("groups", teacherService.getById(teacher.getId()).getGroups());
         model.addAttribute("result", testResultService.findAll());
         return "testResult";
+    }
+
+    @GetMapping(value = "/pdf/request", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> profitReport(@AuthenticationPrincipal Teacher teacher){
+        PDFGenerator pdfGenerator = new PDFGenerator();
+        ByteArrayInputStream bis = pdfGenerator.PDFReport(teacher, testResultService.findByTeacherId(teacher.getId()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=Результаты тестирования.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
     }
 }

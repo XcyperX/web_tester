@@ -6,16 +6,12 @@ import com.example.webcontent.dto.TestResultByStudentDto;
 import com.example.webcontent.dto.TestResultDto;
 //import com.example.webcontent.mapper.TestResultMapper;
 import com.example.webcontent.mapper.Mapper;
-import com.example.webcontent.model.Group;
-import com.example.webcontent.model.Question;
-import com.example.webcontent.model.Test;
-import com.example.webcontent.model.TestResult;
+import com.example.webcontent.model.*;
+import com.example.webcontent.repository.GroupRepo;
+import com.example.webcontent.repository.StudentRepo;
 import com.example.webcontent.repository.TestRepo;
 import com.example.webcontent.repository.TestResultRepo;
-import com.example.webcontent.service.AnswerService;
-import com.example.webcontent.service.StudentService;
-import com.example.webcontent.service.TestResultService;
-import com.example.webcontent.service.TestService;
+import com.example.webcontent.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +31,13 @@ public class TestResultServiceImpl implements TestResultService{
     @Autowired
     private StudentService studentService;
     @Autowired
+    private StudentRepo studentRepo;
+    @Autowired
     private TestResultRepo testResultRepo;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private GroupRepo groupRepo;
 
     @Override
     public TestResultDto getById(Long aLong) {
@@ -89,5 +91,19 @@ public class TestResultServiceImpl implements TestResultService{
     @Override
     public List<TestResultByStudentDto> findByStudentId(Long id) {
         return mapper.testResultByStudentMapper.toDtos(testResultRepo.findAllByStudentId(id));
+    }
+
+    @Override
+    public List<TestResultByStudentDto> findByTeacherId(Long id) {
+        List<Group> groups = groupRepo.findAllByTeacherId(id);
+        List<Student> students = new ArrayList<>();
+        List<TestResultByStudentDto> testResultByStudentDtos = new ArrayList<>();
+        groups.forEach(group -> {
+            students.addAll(studentRepo.findAllByGroupId(group.getId()));
+        });
+        students.forEach(student -> {
+            testResultByStudentDtos.addAll(mapper.testResultByStudentMapper.toDtos(testResultRepo.findAllByStudentId(student.getId())));
+        });
+        return testResultByStudentDtos;
     }
 }

@@ -3,9 +3,6 @@
 <@c.page>
 <form action="/login" method="post">
     <div class="form-row">
-        <label>Войти</label>
-    </div>
-    <div class="form-row">
         <div class="form-group col-md-6">
             <label>Логин</label>
             <input type="text" name="username" class="form-control" placeholder="Введите логин">
