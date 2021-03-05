@@ -102,7 +102,10 @@ public class TestResultServiceImpl implements TestResultService{
             students.addAll(studentRepo.findAllByGroupId(group.getId()));
         });
         students.forEach(student -> {
-            testResultByStudentDtos.addAll(mapper.testResultByStudentMapper.toDtos(testResultRepo.findAllByStudentId(student.getId())));
+            testResultByStudentDtos.addAll(
+                    mapper.testResultByStudentMapper.toDtos(
+                            testResultRepo.findAllByStudentId(
+                                    student.getId())));
         });
         return testResultByStudentDtos;
     }

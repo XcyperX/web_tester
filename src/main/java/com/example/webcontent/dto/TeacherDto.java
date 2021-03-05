@@ -27,6 +27,10 @@ public class TeacherDto {
     private String surname;
 
     @NotBlank
+    @JsonProperty("second_name")
+    private String secondName;
+
+    @NotBlank
     private String password;
 
     @NotBlank

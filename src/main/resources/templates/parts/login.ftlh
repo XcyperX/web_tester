@@ -11,16 +11,22 @@
                     <input id="teacher_id" type="text" name="teacher_id"
                            value="<#if teacher?has_content>${teacher.id}</#if>" hidden>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Имя</label>
                             <input id="name" type="text" name="name" class="form-control" placeholder="Введите имя"
                                    value="<#if teacher?has_content>${teacher.name}</#if>">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Фамилия</label>
                             <input id="surname" type="text" name="surname" class="form-control"
                                    placeholder="Введите фамилию"
                                    value="<#if teacher?has_content>${teacher.surname}</#if>">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Фамилия</label>
+                            <input id="second_name" type="text" name="second_name" class="form-control"
+                                   placeholder="Введите отчество"
+                                   value="<#if teacher?has_content>${teacher.secondName}</#if>">
                         </div>
                     </div>
                     <div class="modal-header pl-0 pb-0 pt-0 mb-2">

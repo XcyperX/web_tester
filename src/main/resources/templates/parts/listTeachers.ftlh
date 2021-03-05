@@ -7,6 +7,7 @@
             <tr>
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
+                <th scope="col">Отчество</th>
                 <th scope="col">Email</th>
                 <th scope="col">Пароль</th>
                 <th scope="col"></th>
@@ -18,37 +19,9 @@
                 <tr>
                     <td>${teacher.name}</td>
                     <td>${teacher.surname}</td>
+                    <td>${teacher.secondName}</td>
                     <td>${teacher.email}</td>
                     <td>${teacher.password}</td>
-                    <#--                <td>-->
-                    <#--                    <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"-->
-                    <#--                            data-target="#infoTeacher_${teacher.id}">-->
-                    <#--                        Подробнее-->
-                    <#--                    </button>-->
-                    <#--                    <!-- Modal &ndash;&gt;-->
-                    <#--                    <div class="modal fade" id="infoTeacher_${teacher.id}" tabindex="-1" role="dialog"-->
-                    <#--                         aria-labelledby="exampleModalLabel"-->
-                    <#--                         aria-hidden="true">-->
-                    <#--                        <div class="modal-dialog modal-lg">-->
-                    <#--                            <div class="modal-content">-->
-                    <#--                                <div class="modal-header">-->
-                    <#--                                    <h5 class="modal-title" id="exampleModalLabel">Информация по:-->
-                    <#--                                        ${teacher.name} ${teacher.surname}</h5>-->
-                    <#--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                    <#--                                        <span aria-hidden="true">&times;</span>-->
-                    <#--                                    </button>-->
-                    <#--                                </div>-->
-                    <#--                                <div class="modal-body">-->
-                    <#--                                    <@login.login teacher=teacher students="" groups="" />-->
-                    <#--                                </div>-->
-                    <#--                                <div class="modal-footer">-->
-                    <#--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена-->
-                    <#--                                    </button>-->
-                    <#--                                </div>-->
-                    <#--                            </div>-->
-                    <#--                        </div>-->
-                    <#--                    </div>-->
-                    <#--                </td>-->
                     <td>
                         <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
                                 data-target="#updateTeacher_${teacher.id}">

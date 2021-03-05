@@ -13,8 +13,8 @@
     >
 <#else>
     <#assign
-        name = "unknown"
-        role = "unknown"
+        name = ""
+        role = ""
         isAdmin = false
     >
 </#if>
@@ -28,8 +28,8 @@
     >
 <#else>
     <#assign
-        name = "unknown"
-        role = "unknown"
+        name = ""
+        role = ""
         isOwner = false
     >
 </#if>

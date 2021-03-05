@@ -20,6 +20,7 @@ public class TeacherMapper implements BaseMapperService<Teacher, TeacherDto> {
         teacher.setEmail(dto.getEmail());
         teacher.setName(dto.getName());
         teacher.setSurname(dto.getSurname());
+        teacher.setSecondName(dto.getSecondName());
         teacher.setPassword(dto.getPassword());
         teacher.setRole(Role.valueOf(dto.getRole()));
         return teacher;
@@ -32,6 +33,7 @@ public class TeacherMapper implements BaseMapperService<Teacher, TeacherDto> {
         teacherDto.setEmail(entity.getEmail());
         teacherDto.setName(entity.getName());
         teacherDto.setSurname(entity.getSurname());
+        teacherDto.setSecondName(entity.getSecondName());
         teacherDto.setPassword(entity.getPassword());
         teacherDto.setRole(entity.getRole().name());
         teacherDto.setGroups(mapper.groupMapper.toDtos(entity.getGroups()));

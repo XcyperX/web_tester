@@ -28,6 +28,9 @@ public class Teacher implements UserDetails{
     private String surname;
 
     @Column(nullable = false)
+    private String secondName;
+
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -40,7 +43,7 @@ public class Teacher implements UserDetails{
     private List<Test> tests = new ArrayList<>();
 
     public String getTeacherName() {
-        return getName();
+        return getName() + " " + getSurname() + " " + getSecondName();
     }
 
     public String getTeacherRole() {

@@ -113,6 +113,7 @@ submitUpdateTeacher = (teacher_id) => {
     user.email = legacyTeacher.querySelector("#email").value;
     user.name = legacyTeacher.querySelector("#name").value;
     user.surname = legacyTeacher.querySelector("#surname").value;
+    user.surname = legacyTeacher.querySelector("#second_name").value;
     user.password = legacyTeacher.querySelector("#password").value;
     user.role = legacyTeacher.querySelector("#role").value;
 
@@ -144,6 +145,7 @@ const user = {
     email: "",
     name: "",
     surname: "",
+    second_name: "",
     password: "",
     role: ""
 }
@@ -474,7 +476,7 @@ function appendSelectStudentsResult(teacher, groupId) {
             for (let j in teacher.groups[i].students) {
                 let option = document.createElement('option');
                 option.value = teacher.groups[i].students[j].student_id;
-                option.innerHTML = teacher.groups[i].students[j].name;
+                option.innerHTML = teacher.groups[i].students[j].name + " " + teacher.groups[i].students[j].suranme;
                 select.appendChild(option);
             }
         }
@@ -491,7 +493,7 @@ function appendSelectStudents(groupId) {
             for (let j in teachers.groups[i].students) {
                 let option = document.createElement('option');
                 option.value = teachers.groups[i].students[j].student_id;
-                option.innerHTML = teachers.groups[i].students[j].name;
+                option.innerHTML = teachers.groups[i].students[j].name + " " + teachers.groups[i].students[j].surname;
                 select.appendChild(option);
             }
         }

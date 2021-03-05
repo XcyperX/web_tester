@@ -26,7 +26,7 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherDto getById(Long id) {
         Optional<Teacher> teacherOptional = teacherRepo.findById(id);
         if (teacherOptional.isEmpty()) {
-            throw new RuntimeException("Ошибка, нет такого препода!");
+            throw new RuntimeException("Ошибка, нет такого преподавателя!");
         }
         return teacherMapper.toDto(teacherOptional.get());
     }
