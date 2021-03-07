@@ -19,7 +19,13 @@
                 <tr>
                     <td>${teacher.name}</td>
                     <td>${teacher.surname}</td>
-                    <td>${teacher.secondName}</td>
+                    <td>
+                        <#if teacher.secondName?has_content>
+                            ${teacher.secondName}
+                        <#else>
+                            Null
+                        </#if>
+                    </td>
                     <td>${teacher.email}</td>
                     <td>${teacher.password}</td>
                     <td>

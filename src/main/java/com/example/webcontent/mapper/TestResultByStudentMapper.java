@@ -20,6 +20,7 @@ public class TestResultByStudentMapper implements BaseMapperService<TestResult, 
     public TestResultByStudentDto toDto(TestResult entity) {
         TestResultByStudentDto testResultByStudentDto = new TestResultByStudentDto();
         testResultByStudentDto.setName(entity.getStudent().getName());
+        testResultByStudentDto.setSurname(entity.getStudent().getSurname());
         testResultByStudentDto.setNameTest(entity.getTest().getName());
         testResultByStudentDto.setResult(entity.getResult());
         return testResultByStudentDto;

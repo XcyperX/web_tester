@@ -24,6 +24,7 @@
             <thead>
             <tr>
                 <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
                 <th scope="col">Название теста</th>
                 <th scope="col">Результат</th>
             </tr>

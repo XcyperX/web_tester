@@ -45,8 +45,8 @@ public class PDFGenerator {
             document.add(para);
             document.add(Chunk.NEWLINE);
 
-            PdfPTable table = new PdfPTable(3);
-            Stream.of("Имя", "Название теста", "Результат")
+            PdfPTable table = new PdfPTable(4);
+            Stream.of("Имя", "Фамилия", "Название теста", "Результат")
                     .forEach(headerTitle -> {
                         PdfPCell header = new PdfPCell();
                         header.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -58,12 +58,13 @@ public class PDFGenerator {
 
             for (TestResultByStudentDto resultByStudentDto : testResultByStudentDtos) {
                 table.addCell(new Phrase(resultByStudentDto.getName(), fontNormal));
+                table.addCell(new Phrase(resultByStudentDto.getSurname(), fontNormal));
                 table.addCell(new Phrase(resultByStudentDto.getNameTest(), fontNormal));
                 table.addCell(new Phrase(resultByStudentDto.getResult().toString(), fontNormal));
             }
             document.add(table);
 
-            Paragraph manager = new Paragraph("Отчет сформировал: " + teacher.getName() + " " + teacher.getSurname(), fontHeader);
+            Paragraph manager = new Paragraph("Отчет сформировал: " + teacher.getName() + " " + teacher.getSurname() + " " + teacher.getSecondName(), fontHeader);
             document.add(manager);
             document.add(Chunk.NEWLINE);
 

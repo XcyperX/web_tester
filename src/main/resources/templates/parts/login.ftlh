@@ -26,7 +26,7 @@
                             <label>Фамилия</label>
                             <input id="second_name" type="text" name="second_name" class="form-control"
                                    placeholder="Введите отчество"
-                                   value="<#if teacher?has_content>${teacher.secondName}</#if>">
+                                   value="<#if teacher?has_content && teacher.secondName?has_content>${teacher.secondName}</#if>">
                         </div>
                     </div>
                     <div class="modal-header pl-0 pb-0 pt-0 mb-2">

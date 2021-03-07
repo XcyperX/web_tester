@@ -38,6 +38,7 @@ public class UiController {
         return "main";
     }
 
+//    Формирование станицы студентов
     @GetMapping("/students")
     public String students(@AuthenticationPrincipal Teacher teacher, Model model) {
         model.addAttribute("teacher", teacher.getId());
@@ -46,6 +47,7 @@ public class UiController {
         return "/students";
     }
 
+//    Формирование страницы регистрации
     @GetMapping("/registration")
     public String registration(Model model) throws TemplateModelException {
         TemplateHashModel roles = BeansWrapper.getDefaultInstance().getEnumModels();
@@ -54,6 +56,7 @@ public class UiController {
         return "/registration";
     }
 
+//    Формирование страницы со списком сотрудников
     @GetMapping("/teachers")
     public String listTeachers(Model model) throws TemplateModelException {
         TemplateHashModel roles = BeansWrapper.getDefaultInstance().getEnumModels();
@@ -63,6 +66,7 @@ public class UiController {
         return "listTeachers";
     }
 
+//    Формирование страницы со списком тестов
     @GetMapping("/tests")
     public String tests(@AuthenticationPrincipal Teacher teacher, Model model) {
         model.addAttribute("teacher", teacher.getId());
@@ -70,6 +74,7 @@ public class UiController {
         return "createTests";
     }
 
+//    Формирование страницы для прохождения тестирования
     @GetMapping("/take/tests")
     public String takeTest(Model model) {
         model.addAttribute("tests", testService.findAll());
@@ -79,6 +84,7 @@ public class UiController {
         return "tests";
     }
 
+//    Формирование страницы с результатами тестирования
     @GetMapping("/result")
     public String resultTest(@AuthenticationPrincipal Teacher teacher, Model model) {
         model.addAttribute("teacher", teacher.getId());
@@ -88,6 +94,7 @@ public class UiController {
         return "testResult";
     }
 
+//    Формирование pdf отчета
     @GetMapping(value = "/pdf/request", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> profitReport(@AuthenticationPrincipal Teacher teacher){
         PDFGenerator pdfGenerator = new PDFGenerator();

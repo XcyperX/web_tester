@@ -14,6 +14,9 @@ public class TestResultByStudentDto {
     private String name;
 
     @NotNull
+    private String surname;
+
+    @NotNull
     private String nameTest;
 
     @NotNull

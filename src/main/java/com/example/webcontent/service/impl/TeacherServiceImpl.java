@@ -22,6 +22,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherRepo teacherRepo;
 
+//    Получение преподавателя по id
     @Override
     public TeacherDto getById(Long id) {
         Optional<Teacher> teacherOptional = teacherRepo.findById(id);
@@ -31,12 +32,14 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.toDto(teacherOptional.get());
     }
 
+//    Сохранение преподавателя
     @Override
     public TeacherDto save(TeacherDto teacherDto) {
         Teacher teacher = teacherMapper.toEntity(teacherDto);
         return teacherMapper.toDto(teacherRepo.save(teacher));
     }
 
+//    Обновление данных преподавателя
     @Override
     public TeacherDto update(TeacherDto teacherDto) {
         Optional<Teacher> teacherOptional = teacherRepo.findById(teacherDto.getId());
@@ -47,6 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.toDto(teacherRepo.save(teacher));
     }
 
+//    Удаление преподавателя по id
     @Override
     public void delete(Long id) {
         Optional<Teacher> teacherOptional = teacherRepo.findById(id);
@@ -56,6 +60,7 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepo.deleteById(id);
     }
 
+//    Получение списка всех сотрудников системы
     @Override
     public List<TeacherDto> findAll() {
         List<TeacherDto> teacherDtos = new ArrayList<>();
@@ -63,6 +68,7 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherDtos;
     }
 
+//    Получение списка студентов у преподавателя по его id
     @Override
     public List<StudentDto> findAllStudents(Long id) {
         List<StudentDto> studentDtos = new ArrayList<>();
@@ -70,12 +76,14 @@ public class TeacherServiceImpl implements TeacherService {
         return studentDtos;
     }
 
+//    Получение списка тестов преподавателя по его id
     @Override
     public List<TestDto> findAllTests(Long id) {
         List<TestDto> testDtos = new ArrayList<>(getById(id).getTests());
         return testDtos;
     }
 
+//    Получение спика сотрудников по его роли
     @Override
     public List<TeacherDto> findAllTeacherByRole(Role role) {
         List<TeacherDto> teacherDtos = new ArrayList<>();
